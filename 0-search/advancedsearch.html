@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <title>Advanced Search</title>
+    </head>
+    <body>
+        <div id="adv-topnav" class="topnav">
+            <a id="nav_header">Google V2</a>
+            <a class="nav_link" href="index.html">Search</a>
+        </div>
+        <div class="container_heading">
+            <p>Advanced Search</p>
+        </div>
+        <div class="container_left">
+            <p>Find pages with...<p>
+            <form action="https://google.com/search">
+                <div class ="grid">
+                    <div class="grid-item">
+                        <label for="as_q">all these words:</label>
+                    </div>
+                    <div class="grid-item">
+                        <input class="adv_search_box" type="text" name="as_q"><br>
+                    </div>
+                    <div class="grid-item">
+                        <label for="as_epq">this exact word or phrase:</label>
+                    </div>
+                    <div class="grid-item">
+                        <input type="text" name="as_epq"><br>
+                    </div>
+                    <div class="grid-item">
+                        <label for="as_oq">any of these words: </label>
+                    </div>
+                    <div class="grid-item">
+                        <input type="text" name="as_oq"><br>
+                    </div>
+                    <div class="grid-item">
+                        <label for="as_eq">none of these words: </label>
+                    </div>
+                    <div class="grid-item">
+                        <input type="text" name="as_eq"><br>
+                    </div>
+                    <div class="grid-item"></div>
+                    <div class="grid-item">
+                        <input id="adv_search_button" type="submit" value="Advanced Search">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

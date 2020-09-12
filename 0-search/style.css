@@ -1,0 +1,115 @@
+body {
+    font-family: arial, sans-serif;
+    margin: 0;
+}
+
+.topnav {
+    overflow: hidden;
+}
+
+/* Styles the current webpage heading */
+#nav_header {
+    float: left;
+    font-size: 20px;
+    color: #37b258;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: right;
+    color: grey;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* Change the color of links on hover */
+.nav_link:hover {
+    color: black;
+    text-decoration: underline
+}
+
+#adv-topnav {
+    background-color: #f1f1f1;
+    margin: none;
+}
+
+#logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+}
+
+.container {
+    text-align: center;
+}
+
+.container_left {
+    text-align: left;
+    margin-inline: 20px;
+}
+
+#imagecaption {
+    color: #37b258;
+}
+
+input:focus {
+    outline:none;
+}
+
+#search_box {
+    height: 40px;
+    margin: 5px;
+    width: 50%;
+    font-size: 15px;
+    border-radius: 30px;
+    background-color: white;
+    background-image: url('img/search_icon.png');
+    background-size: 25px;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding-left: 40px;
+}
+
+input[type=submit] {
+    height: 40px;
+    margin: 5px;
+    border-radius: 5px;
+    margin-inline: 5px;
+}
+
+.container_heading {
+    color: #d93025;
+    font-style: normal;
+    border-bottom: 1px solid #ebebeb;
+    padding-left: 20px;
+}
+
+input[type=text] {
+    width: 100%
+}
+
+label {
+    font-size: 14px;
+}
+
+#adv_search_button {
+    width: 120px;
+    height: 30px;
+    color: white;
+    background-color:#4888F0;
+    float: right;
+    padding: none;
+    margin: none;
+}
+
+.grid {
+    display: grid;
+    height: 30px;
+    column-gap: 20px;
+    row-gap: 10px;
+    grid-template-columns: 200px 50%;
+}
+
