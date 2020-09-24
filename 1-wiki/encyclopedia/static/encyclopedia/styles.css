@@ -25,6 +25,7 @@ textarea {
     width: 100%;
     font-size: 15px;
     line-height: 15px;
+    label: None;
 }
 
 .sidebar {
@@ -35,4 +36,8 @@ textarea {
 
 .sidebar h2 {
     margin-top: 5px;
+}
+
+.newentryform {
+    padding: 20px;
 }
