@@ -1,0 +1,19 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Watchlist</h2>
+    <ul>
+        {% for listing in listings %}
+            <div class = "card flex-row flex-wrap">
+                <div class="card-header border-0">
+                    <img src="{{ listing.image }}" alt="">
+                </div>
+                <div class="card-block px-2">
+                    <h4 class="card-title">{{ listing.title }}</h4>
+                    <p class="card-text">Current Price: ${{ listing.price }}</p>
+                    <a href="{% url 'listing' listing.id %}" class="btn btn-primary">See Listing</a>
+                </div>
+            </div>
+        {% endfor %}
+    </ul>
+{% endblock %}

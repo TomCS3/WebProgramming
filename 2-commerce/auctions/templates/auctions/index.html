@@ -1,7 +1,23 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Active Listings</h2>
-
-    TODO
+    <h2>Active Listings {{ pretitle }}</h2>
+        <div class ="container-fluid">
+                {% for item in object_list %}
+                    <div class = "card flex-row flex-wrap mx-5">
+                        <div class="card-header border-0 col-4 p-2">
+                            <img class="card-img" src="{{ item.image }}" alt="No Image on Database" size>
+                        </div>
+                        <div class="card-block col-6 p-2">
+                            <h4 class="card-title">{{ item.title }}</h4>
+                            <p class="card-text">Description: {{ item.description }}</p>
+                        </div>
+                        <div class="card-block col-2 p-2">
+                                <p class="card-text">Current Bid: ${% firstof  item.current_price|floatformat:"2" item.price %}</p>
+                            <a href="{% url 'listing_detail' item.id %}" class="btn btn-primary">See Listing</a>
+                        </div>
+                    </div>
+                    <br>
+                {% endfor %}
+        </div>
 {% endblock %}

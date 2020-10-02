@@ -1,0 +1,40 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Item Listing</h2>
+    <div class ="container-fluid">
+        <div class = "card flex-row flex-wrap mx-5">
+            <div class="card-header border-0 col-4 p-2">
+                <img class="card-img" src="{{ item.image }}" alt="No Image">
+            </div>
+            <div class="card-block col-6 p-2">
+                <h4 class="card-title">{{ item.title }}</h4>
+                <u class="card-text">Description</u>
+                <p class="card-text">{{ item.description }}</p>
+            </div>
+            <div class="card-block col-2 p-2">
+                <p class="card-text">Current Bid: ${{ current_price }}</p>
+                {% if user.is_authenticated %}
+                    <form method="post">
+                        {% csrf_token %}
+                        {% include './form_nolabel.html' with form=bid_form %}
+                        <button type="submit" class="btn btn-primary" name="place_bid">Bid</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+        <div class = "card flex-row flex-wrap mx-5 p-2">
+            <p class="card-title">Comments</p>
+            {% for comment in comments %}
+                <p>{{ comment }}</p>
+            {% endfor %}
+            {% if user.is_authenticated %}
+                <form class="col-12" method="post">
+                    {% csrf_token %}
+                    {% include './form_nolabel.html' with form=com_form %}
+                    <button type="submit" class="btn btn-primary" name="post_comment">Comment</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
