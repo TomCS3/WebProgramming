@@ -2,9 +2,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 
-
 class User(AbstractUser):
-    watchlist = models.ManyToManyField("Listing", blank=True, related_name="watchlist")
+    pass
  
 class Listing(models.Model):
 
@@ -57,5 +56,14 @@ class Comment(models.Model):
     def __str__(self):
         return f'{self.user}: "{self.comment}"'
 
-# class Watchlist(models.Model):
-#     user_id = Model
+class Watchlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user}: is watching "{self.listing}"'
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'listing'], name='unique_watching')
+        ]

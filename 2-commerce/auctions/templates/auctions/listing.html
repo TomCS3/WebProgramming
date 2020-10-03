@@ -3,7 +3,7 @@
 {% block body %}
     <h2>Item Listing</h2>
     <div class ="container-fluid">
-        <div class = "card flex-row flex-wrap mx-5">
+        <div class = "card flex-row flex-wrap mx-1">
             <div class="card-header border-0 col-4 p-2">
                 <img class="card-img" src="{{ item.image }}" alt="No Image">
             </div>
@@ -13,28 +13,48 @@
                 <p class="card-text">{{ item.description }}</p>
             </div>
             <div class="card-block col-2 p-2">
-                <p class="card-text">Current Bid: ${{ current_price }}</p>
+                <p class="font-weight-bold text-center">${{ current_price }} - Bids: {{bid_count}}</p>
                 {% if user.is_authenticated %}
+                    {% if item.active == False %}
+                        <p class="font-weight-bold text-center">Highest Bidder: {{ item.purchaser }}</p>
+                    {% elif request.user == item.user %}
+                        <form method="post">
+                            {% csrf_token %}
+                                <button type="submit" class="btn btn-primary btn-block" name="end_auction">End Auction</button>
+                        </form>
+                    {% else%}
+                        <form method="post">
+                            {% csrf_token %}
+                            {% include './form_nolabel.html' with form=bid_form %}
+                            <button type="submit" class="btn btn-primary btn-block" name="place_bid">Bid</button>
+                        </form>
+                    {% endif %}
+                    <br>
                     <form method="post">
                         {% csrf_token %}
-                        {% include './form_nolabel.html' with form=bid_form %}
-                        <button type="submit" class="btn btn-primary" name="place_bid">Bid</button>
+                        {% if watching == True %}
+                            <button type="submit" class="btn btn-outline-info btn-block" name="unwatch">Unwatch</button>
+                        {% else %}
+                            <button type="submit" class="btn btn-outline-info btn-block" name="watch">Watch</button>
+                        {% endif %}
                     </form>
                 {% endif %}
             </div>
         </div>
-        <div class = "card flex-row flex-wrap mx-5 p-2">
-            <p class="card-title">Comments</p>
-            {% for comment in comments %}
-                <p>{{ comment }}</p>
-            {% endfor %}
-            {% if user.is_authenticated %}
-                <form class="col-12" method="post">
-                    {% csrf_token %}
-                    {% include './form_nolabel.html' with form=com_form %}
-                    <button type="submit" class="btn btn-primary" name="post_comment">Comment</button>
-                </form>
-            {% endif %}
+        <div class = "card flex-row flex-wrap mx-1 p-2">
+            <div class = "col-12">
+                <h5><u class="card-title">Comments</u></h5>
+                {% for comment in comments %}
+                    <blockquote class="text-left">{{ comment }}</blockquote>
+                {% endfor %}
+                {% if user.is_authenticated %}
+                    <form method="post">
+                        {% csrf_token %}
+                        {% include './form_nolabel.html' with form=com_form %}
+                        <button type="submit" class="btn btn-primary" name="post_comment">Comment</button>
+                    </form>
+                {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}

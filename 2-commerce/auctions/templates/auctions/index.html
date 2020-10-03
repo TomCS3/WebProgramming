@@ -4,7 +4,7 @@
     <h2>Active Listings {{ pretitle }}</h2>
         <div class ="container-fluid">
                 {% for item in object_list %}
-                    <div class = "card flex-row flex-wrap mx-5">
+                    <div class = "card flex-row flex-wrap mx-1">
                         <div class="card-header border-0 col-4 p-2">
                             <img class="card-img" src="{{ item.image }}" alt="No Image on Database" size>
                         </div>
@@ -13,8 +13,8 @@
                             <p class="card-text">Description: {{ item.description }}</p>
                         </div>
                         <div class="card-block col-2 p-2">
-                                <p class="card-text">Current Bid: ${% firstof  item.current_price|floatformat:"2" item.price %}</p>
-                            <a href="{% url 'listing_detail' item.id %}" class="btn btn-primary">See Listing</a>
+                            <p class="font-weight-bold text-center"> ${% firstof  item.current_price|floatformat:"2" item.price %}</p>
+                            <a href="{% url 'listing_detail' item.id %}" class="btn btn-primary btn-block">View Listing</a>
                         </div>
                     </div>
                     <br>
