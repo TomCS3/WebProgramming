@@ -30,6 +30,41 @@
             <input type="submit" class="btn btn-primary"/>
         </form>
     </div>
+    <div class="container" id="email-view">
+        <div class="header">
+            <div class="row">
+                <div class="col">
+                    <h5 id="email-subject"></h5>
+                </div>
+                <div class="col">
+                    <h6 class="text-muted" id="email-timestamp">time</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h6 class="card-subtitle text-muted">From:</h6>
+                </div>
+                <div class="col">
+                    <h6 class="card-subtitle text-muted" id="email-sender"></h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <h6 class="card-subtitle text-muted">To:</h6>
+                </div>
+                <div class="col">
+                    <h6 class="card-subtitle text-muted" id="email-recipients"></h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h6 id="email-body"></h6>
+        </div>
+        <div class="row">
+            <a href="#" class="btn btn-primary" id="email-reply">Reply</a>
+                <a href="#" class="btn btn-primary" id="email-archive">Archive</a>
+        </div>
+    </div>
 {% endblock %}
 
 {% block script %}
