@@ -3,6 +3,7 @@
         - text
     - Editing
     - Deleting
+    - Liking
 
 
 2. Users

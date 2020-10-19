@@ -1,0 +1,19 @@
+.bg-network{
+    background-color: #3290a8 !important;
+}
+
+.body-cont{
+    background-color:  #ffffff;
+    border-radius: 10px; 
+}
+
+body{
+    background-color: rgb(219, 219, 219) !important; 
+}
+
+.foll-btn:hover, .foll-btn:focus, .foll-btn:active, .foll-btn:visited  {
+    color: #007bff!important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border-color: #007bff !important;
+}

@@ -1,24 +1,35 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-<div class='row text-center'>
-    <div class='col'>
-        <h3>Welcome to Network</h3>
+<div clas = >
+    <div class='col text-center'>
+        <a class='m-2' href="{% url 'profile-view' profile_user.id %}">{{profile_user}}</a>
+        <button class='btn btn-outline-primary foll-btn m-2' id='followers-btn'>{{profile.followers.all.count}} Followers</button>
+        <button class='btn btn-outline-primary foll-btn m-2' id='following-btn'>{{profile.following.all.count}} Following</button>
+        {% if request.user != profile_user and request.user.is_authenticated %}
+            {% if request.user in profile.followers.all %}
+            <button class='btn btn-danger m-2' id='follow-btn'data-profile_id="{{profile_user.id}}">Following</button>
+            {% else %}
+            <button class='btn btn-outline-danger m-2' id='follow-btn'data-profile_id="{{profile_user.id}}">Follow</button>
+            {% endif %}
+        {% endif %}
     </div>
 </div>
- {% if request.user.is_authenticated %}   
+
+{% if request.user == profile_user %}
 <div class='row mb-3'>
     <div class='col-10 mx-auto'>
         <form class='form' id='post-create-form' method='POST' action ="{% url 'post-create' %}">
             {% csrf_token %}
             <div class='d-none alert alert-danger' id='post-create-form-error'></div>
-            <input type='hidden' value="{% url 'profile-view' 1 %}" name='next' />
+            <input type='hidden' value="{% url 'profile-view' profile_user.id %}" name='next' />
             <textarea required='required' class='form-control my-2' name='content' placeholder='Write Something...'></textarea>
             <button type='submit' class='btn btn-primary btn-sm'>Post</button>
         </form>
     </div>
 </div>
 {% endif %}
+
 <div id='posts'>
     {% for post in posts %}
     <article class="media content-section border p-2 m-2">
