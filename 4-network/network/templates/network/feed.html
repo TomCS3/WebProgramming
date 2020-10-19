@@ -1,0 +1,56 @@
+<div id='posts'>
+    {% for post in posts %}
+    <article class="media content-section border p-2 m-2">
+        <div class="media-body">
+            <div class="article-metadata row">
+                <div class="col" id="metadata-info-{{post.id}}">
+                    <a class="mr-2" href="{% url 'profile-view' post.user.id %}">{{ post.user }}</a>
+                    <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                    {% if request.user == post.user %}
+                        <button class="btn btn-link edit-link" id="edit-link-{{post.id }}" data-post_id="{{ post.id }}">Edit</button>
+                    {% endif %}
+                </div>
+                <div class="col text-right">
+                    {% if request.user.is_authenticated %}
+                        {% if request.user in post.likes.all %}
+                        <button class="btn btn-primary btn-sm like-btn" id="like-btn-{{post.id}}" data-post_id="{{ post.id }}">{{post.likes.all.count}} Likes</button>
+                        {% else %}
+                        <button class="btn btn-outline-primary btn-sm like-btn" id="like-btn-{{post.id}}" data-post_id="{{ post.id }}">{{post.likes.all.count}} Likes</button>
+                        {% endif %}
+                    {% else %}
+                    <button class="btn btn-outline-primary btn-sm" id="like-btn-{{post.id}}">{{post.likes.all.count}} Likes</button>
+                    {% endif %}
+                </div>
+            </div>
+            <div id="post-content-{{post.id}}">
+                <p id="post-content-text-{{post.id}}">{{ post.content }}</p>
+            </div>
+            <div id="edit-form-{{post.id}}">
+            </div>
+        </div>
+    </article>
+    {% endfor %}
+</div>
+{% if posts.has_other_pages %}
+<div class="container">
+  <ul class="pagination">
+    {% if posts.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="page-item disabled"><a class="page-link">&laquo;</a></li>
+    {% endif %}
+    {% for i in posts.paginator.page_range %}
+      {% if posts.number == i %}
+        <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if posts.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="page-item disabled"><a class="page-link">&raquo;</a></li>
+    {% endif %}
+  </ul>
+</div>
+{% endif %}

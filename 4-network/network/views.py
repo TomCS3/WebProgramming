@@ -9,10 +9,25 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import User, Post, Profile
 from .forms import PostForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+def paginator_func(request, posts):
+    page = request.GET.get("page")
+    paginator = Paginator(posts, 10)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+    return posts
+
 
 def index(request):
+    posts = Post.objects.all()
+    paginator_posts = paginator_func(request, posts)
     context = {
-        'posts': Post.objects.all(),
+        'posts': paginator_posts,
     }
     return render(request, "network/index.html", context)
 
@@ -68,14 +83,28 @@ def register(request):
     else:
         return render(request, "network/register.html")
 
+
 def profile_view(request, profile_user_id):
+    posts = Post.objects.filter(user=profile_user_id)
+    paginator_posts = paginator_func(request, posts)
     context = {
-        'posts': Post.objects.filter(user=profile_user_id),
+        'posts': paginator_posts,
         'profile_user': User.objects.get(id=profile_user_id),
         'profile': Profile.objects.get(user=profile_user_id)
     }
     return render(request, "network/profile.html", context)
 
+def following_posts_view(request):
+    following = Profile.objects.get(user=request.user).following.all()
+    posts = Post.objects.filter(user__in=following)
+    paginator_posts = paginator_func(request, posts)
+    context = {
+        'posts': paginator_posts,
+    }
+    return render(request, "network/following_posts.html", context)
+
+
+@login_required
 def post_create(request):
     form = PostForm(request.POST)
     next_url = request.POST.get("next")
@@ -85,6 +114,7 @@ def post_create(request):
         post.save()
         return redirect(next_url)
     return HttpResponseRedirect(reverse("index"))
+
 
 # API view to follow a user
 @csrf_exempt
@@ -116,6 +146,7 @@ def profile_follow(request, profile_user_id):
     else:
         return JsonResponse({"error": "Must be PUT request"}, status=400)
 
+
 # API view to like a post
 @csrf_exempt
 @login_required
@@ -138,7 +169,6 @@ def post_like(request, post_id):
 
     else:
         return JsonResponse({"error": "Must be PUT request"}, status=400)
-
 
 
 # API view to edit an existing post
