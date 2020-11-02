@@ -5,7 +5,7 @@
             <div class="article-metadata row">
                 <div class="col" id="metadata-info-{{post.id}}">
                     <a class="mr-2" href="{% url 'profile-view' post.user.id %}">{{ post.user }}</a>
-                    <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                    <small class="text-muted">{{ post.date_posted|date:"h:i A F d, Y" }}</small>
                     {% if request.user == post.user %}
                         <button class="btn btn-link edit-link" id="edit-link-{{post.id }}" data-post_id="{{ post.id }}">Edit</button>
                     {% endif %}

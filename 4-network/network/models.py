@@ -34,12 +34,3 @@ class Post(models.Model):
     
     class Meta:
         ordering = ['-id']
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            #  "user": self.user,
-            "content": self.content,
-            "date_posted": self.date_posted,
-            "likes": randint(0, 100)
-        }
