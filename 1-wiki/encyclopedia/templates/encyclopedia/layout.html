@@ -10,20 +10,23 @@
     </head>
     <body>
         <div class="row">
-            <div class="sidebar col-lg-2 col-md-3">
-                <h2>Wiki</h2>
-                <form action="{% url 'index' %}" method="POST">
-                    {% csrf_token %}
-                    {{ form }}
-                </form>
-                <div>
-                    <a href="{% url 'index' %}">Home</a>
+            <div class="sidebar col-lg-2 col-md-3 bg-dark">
+                <h2 class="text-light">Wiki</h2>
+                <p class="text-muted">"The resource for looking up all things"</p>
+                <div class="pb-2">
+                    <form action="{% url 'index' %}" method="POST">
+                        {% csrf_token %}
+                        {{ form }}
+                    </form>
                 </div>
                 <div>
-                    <a href="{% url 'new' %}">Create New Page</a>
+                    <a class="text-light" href="{% url 'index' %}">Home</a>
                 </div>
                 <div>
-                    <a href="{% url 'random' %}">Random Page</a>
+                    <a class="text-light" href="{% url 'new' %}">Create New Page</a>
+                </div>
+                <div>
+                    <a class="text-light" href="{% url 'random' %}">Random Page</a>
                 </div>
                 {% block nav %}
                 {% endblock %}

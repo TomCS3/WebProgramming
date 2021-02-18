@@ -6,7 +6,7 @@
 
 {% block body %}
     <h1>Search Results</h1>
-
+    <hr />
     <ul>
         {% for entry in searchresults %}
             <li><a href="{% url 'entry' entry %}">{{entry}}</a></li>
