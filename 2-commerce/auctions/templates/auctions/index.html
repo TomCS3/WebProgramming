@@ -1,23 +1,47 @@
 {% extends "auctions/layout.html" %}
+{% load humanize %}
 
 {% block body %}
-    <h2>Active Listings {{ pretitle }}</h2>
+<div class="row">
+    <div class="sidebar col-lg-2 col-md-2 border-right">
+        {% if categories %}
+        <p class="mx-2 my-1 font-weight-bold font-und"><u>CATEGORIES</u></p>
+        <ul class="list-unstyled mx-2 my-0">
+            {% for category in categories %}
+                <li><a href="{% url 'category_listings' category %}"}}>{{ category }}</a></li>
+            {% endfor %}
+        </ul>
+        {% elif watch_count %}
+        <p class="mx-2 my-1 font-weight-bold font-und">Items Watching: {{ watch_count}}</p>
+        {% endif %}
+    </div>
+    <div class="main col-lg-10 col-md-9">
+        <h2 class='text-center'>Active Listings {{ pretitle }}</h2>
         <div class ="container-fluid">
+            <div class= "row justify-content-center">
+
                 {% for item in object_list %}
-                    <div class = "card flex-row flex-wrap mx-1">
-                        <div class="card-header border-0 col-4 p-2">
-                            <img class="card-img" src="{{ item.image }}">
-                        </div>
-                        <div class="card-block col-6 p-2">
-                            <h4 class="card-title">{{ item.title }}</h4>
-                            <p class="card-text">Description: {{ item.description }}</p>
-                        </div>
-                        <div class="card-block col-2 p-2">
-                            <p class="font-weight-bold text-center"> ${% firstof  item.current_price|floatformat:"2" item.price %}</p>
-                            <a href="{% url 'listing_detail' item.id %}" class="btn btn-primary btn-block">View Listing</a>
+                    <div class="card col-5 mx-4 my-2">
+                        <div class="row">
+                            <div class="card-header border-0 col-4 p-2">
+                                <img class="card-img" src="{{ item.image }}">
+                            </div>
+                            <div class="card-block col-5 p-2">
+                                <h4 class="card-title">{{ item.title }}</h4>
+                                <p class="card-text font-weight-bold my-0">Description:</p>
+                                <p class="card-text">{{ item.description }}</p>
+                                
+                            </div>
+                            <div class="card-block col-3 p-2">
+                                <p class="font-weight-bold text-center"> ${% firstof  item.current_price|floatformat:2|intcomma item.price|floatformat:2|intcomma %}</p>
+                                <a href="{% url 'listing_detail' item.id %}" class="btn btn-primary btn-block">View Listing</a>
+                            </div>
                         </div>
                     </div>
                     <br>
                 {% endfor %}
+            </div>
         </div>
+    </div>
+</div>
 {% endblock %}

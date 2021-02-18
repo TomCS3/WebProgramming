@@ -11,9 +11,11 @@ from .models import User, Listing, Bid, Comment, Watchlist
 
 def index(request):
     queryset = Listing.objects.filter(active=True).annotate(current_price=Max('bids__price'))
+    categories = Listing.objects.filter(active=True).order_by("category").values_list("category", flat=True).distinct()
     context = {
         'title_end': "- All",
-        'object_list': queryset
+        'object_list': queryset,
+        "categories": categories
     }
     return render(request, "auctions/index.html", context)
 
@@ -68,29 +70,25 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 
-def categories(request):
-    categories = Listing.objects.filter(active=True).order_by("category").values_list("category", flat=True).distinct()
-    context = {
-        "categories": categories
-    }
-    return render(request, "auctions/categories.html", context)
-
 def category_listings(request, category):
     listings = Listing.objects.filter(category=category.upper()).filter(active=True)
     title_end = "- " + category.lower().capitalize()
+    categories = Listing.objects.filter(active=True).order_by("category").values_list("category", flat=True).distinct()
     context = {
         "pretitle": title_end,
-        "object_list": listings
+        "object_list": listings,
+        "categories": categories
     }
     return render(request, "auctions/index.html", context)
 
 @login_required
 def watchlist(request):
     watchlist = Listing.objects.filter(watchlist__user=request.user)
-
+    watch_count = watchlist.count()
     context = {
         "pretitle": "- Watchlist",
-        "object_list": watchlist
+        "object_list": watchlist,
+        "watch_count": watch_count
     }
     return render(request, "auctions/index.html", context)
 

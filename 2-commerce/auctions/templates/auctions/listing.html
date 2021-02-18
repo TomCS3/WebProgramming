@@ -1,5 +1,5 @@
 {% extends "auctions/layout.html" %}
-
+{% load humanize %}
 {% block body %}
     <h2>Item Listing</h2>
     <div class ="container-fluid">
@@ -13,7 +13,7 @@
                 <p class="card-text">{{ item.description }}</p>
             </div>
             <div class="card-block col-2 p-2">
-                <p class="font-weight-bold text-center">${{ current_price }} - Bids: {{bid_count}}</p>
+                <p class="font-weight-bold text-center">${{ current_price|floatformat:2|intcomma }} - Bids: {{bid_count}}</p>
                 {% if user.is_authenticated %}
                     {% if item.active == False %}
                         <p class="font-weight-bold text-center">Highest Bidder: {{ item.purchaser }}</p>
