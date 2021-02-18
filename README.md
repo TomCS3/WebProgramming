@@ -1,6 +1,6 @@
-# CS50 Web Programming with Python and Javascript
+# Web Programming with Python and Javascript
 
-Repository for my CS50 Web Programming project files
+Repository for my Web Programming project files
 
 | Project | Title   | Description                  |
 | ------- | ------- | ---------------------------- |
